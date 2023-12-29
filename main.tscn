@@ -34,7 +34,7 @@ stretch_mode = 1
 position = Vector2(40, 324)
 
 [node name="Paddle2" parent="." instance=ExtResource("1_5kotk")]
-position = Vector2(1120, 312)
+position = Vector2(1112, 312)
 player = 2
 
 [node name="Ball" parent="." instance=ExtResource("3_kch7j")]

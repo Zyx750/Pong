@@ -1,25 +1,27 @@
-using Godot;
 using System;
+using Godot;
 
 public partial class Ball : CharacterBody2D
 {
+    [Export]
+    public float speed = 400f;
+    [Export]
+    public float acceleration = 1.1f;
+	private Vector2 screenSize;
     private Vector2 velocity;
     private float height;
-    [Export]
-    public float speed = 200f;
-	private Vector2 screenSize;
 
 
     public override void _Ready()
     {
-        velocity = new Vector2(speed, speed);
+        LaunchBall(1);
 		screenSize = GetViewportRect().Size;
         height = (GetNode<CollisionShape2D>("CollisionShape2D").Shape as RectangleShape2D).Size.Y;
     }
 
     public override void _PhysicsProcess(double delta)
 	{
-        var coll = MoveAndCollide(velocity * (float)delta);
+        var colInfo = MoveAndCollide(velocity * (float)delta);
         //Position += velocity * (float)delta;
         if(Position.Y <= height/2) {
             velocity = velocity.Bounce(Vector2.Up);
@@ -28,10 +30,19 @@ public partial class Ball : CharacterBody2D
             velocity = velocity.Bounce(Vector2.Down);
         }
 
-        if(coll != null) {
-            GD.Print("TEST");
+        if (colInfo != null) {
+            velocity = velocity.Bounce(colInfo.GetNormal());
+            velocity *= acceleration;
         }
 	}
 
-    
+    //dir
+    //-1 - left
+    // 1 - right
+    public void LaunchBall(int dir) {
+        velocity = new Vector2(dir,0);
+        Random rand = new Random();
+        velocity = velocity.Rotated((float)rand.NextDouble()-0.5f);
+        velocity *= speed;
+    }
 }

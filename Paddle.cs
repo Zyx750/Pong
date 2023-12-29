@@ -1,8 +1,8 @@
 using Godot;
-public partial class Paddle : Area2D
+public partial class Paddle : CharacterBody2D
 {
 	[Export]
-	private float speed = 300.0f;
+	private float speed = 400.0f;
 	[Export(PropertyHint.Range, "1,2")]
 	private int player = 1;
 	private Vector2 screenSize;
