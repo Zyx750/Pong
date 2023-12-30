@@ -1,11 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://b6imritysf21c"]
+[gd_scene load_steps=7 format=3 uid="uid://b6imritysf21c"]
 
 [ext_resource type="PackedScene" uid="uid://i24mf5ml5l8h" path="res://paddle.tscn" id="1_5kotk"]
 [ext_resource type="Texture2D" uid="uid://b6b6bb2k0cn81" path="res://divider.png" id="1_6mmiy"]
 [ext_resource type="Script" path="res://Main.cs" id="1_wd348"]
 [ext_resource type="PackedScene" uid="uid://b661os51hihph" path="res://ball.tscn" id="3_kch7j"]
+[ext_resource type="Theme" uid="uid://bualmukdvu5j3" path="res://pixel.tres" id="5_akyjp"]
+[ext_resource type="Script" path="res://ScoreBoard.cs" id="6_f06k1"]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node"]
 script = ExtResource("1_wd348")
 
 [node name="Background" type="ColorRect" parent="."]
@@ -45,5 +47,27 @@ position = Vector2(576, 324)
 [node name="StartTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="ScoreBoard" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_akyjp")
+script = ExtResource("6_f06k1")
+
+[node name="Player1" type="Label" parent="ScoreBoard"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "0"
+
+[node name="Player2" type="Label" parent="ScoreBoard"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "0"
+
 [connection signal="Goal" from="Ball" to="." method="OnGoal"]
+[connection signal="Goal" from="Ball" to="ScoreBoard" method="OnGoal"]
 [connection signal="timeout" from="StartTimer" to="Ball" method="LaunchBall"]
