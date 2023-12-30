@@ -32,12 +32,14 @@ public partial class Ball : CharacterBody2D
 	{
         var colInfo = MoveAndCollide(velocity * (float)delta);
         //Position += velocity * (float)delta;
-        if(Position.Y <= height/2) {
+        if(Position.Y < height/2) {
             velocity = velocity.Bounce(Vector2.Up);
+            Position = new Vector2(Position.X, height/2);
             bounce.Play();
         }
-        if(Position.Y >= screenSize.Y-height/2) {
+        if(Position.Y > screenSize.Y-height/2) {
             velocity = velocity.Bounce(Vector2.Down);
+            Position = new Vector2(Position.X, screenSize.Y-height/2);
             bounce.Play();
         }
 
