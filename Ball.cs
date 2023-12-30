@@ -4,13 +4,14 @@ using Godot;
 public partial class Ball : CharacterBody2D
 {
     [Export]
-    public float speed = 400f;
+    public float startSpeed = 400f;
     [Export]
     public float acceleration = 1.1f;
 	private Vector2 screenSize;
     private Vector2 velocity;
     private float height;
     private int dir = 1;
+    private float speed;
     private AudioStreamPlayer bounce;
     private AudioStreamPlayer goal;
 
@@ -41,9 +42,9 @@ public partial class Ball : CharacterBody2D
         }
 
         if (colInfo != null) {
-            Vector2 dir = Position.DirectionTo((colInfo.GetCollider() as CollisionObject2D).Position);
-            dir.Y /= 2;
-            velocity = -dir.Normalized() * velocity.Length();
+            Vector2 dir = new Vector2(colInfo.GetNormal().X*10, Position.Y - (colInfo.GetCollider() as CollisionObject2D).Position.Y).Normalized();
+            speed *= acceleration;
+            velocity = (dir + velocity.Bounce(colInfo.GetNormal()).Normalized()).Normalized() * speed;
             bounce.Play();
         }
 
@@ -61,6 +62,7 @@ public partial class Ball : CharacterBody2D
         velocity = new Vector2(dir,0);
         Random rand = new Random();
         velocity = velocity.Rotated((float)rand.NextDouble()*1.5f-0.75f);
+        speed = startSpeed;
         velocity *= speed;
     }
 
