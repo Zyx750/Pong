@@ -41,8 +41,9 @@ public partial class Ball : CharacterBody2D
         }
 
         if (colInfo != null) {
-            velocity = velocity.Bounce(colInfo.GetNormal());
-            velocity *= acceleration;
+            Vector2 dir = Position.DirectionTo((colInfo.GetCollider() as CollisionObject2D).Position);
+            dir.Y /= 2;
+            velocity = -dir.Normalized() * velocity.Length();
             bounce.Play();
         }
 
