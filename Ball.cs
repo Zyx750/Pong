@@ -10,11 +10,15 @@ public partial class Ball : CharacterBody2D
 	private Vector2 screenSize;
     private Vector2 velocity;
     private float height;
+    private int dir = 1;
+
+    [Signal]
+    public delegate void GoalEventHandler(int side); //-1 or 1
 
 
     public override void _Ready()
     {
-        LaunchBall(1);
+        LaunchBall();
 		screenSize = GetViewportRect().Size;
         height = (GetNode<CollisionShape2D>("CollisionShape2D").Shape as RectangleShape2D).Size.Y;
     }
@@ -34,15 +38,21 @@ public partial class Ball : CharacterBody2D
             velocity = velocity.Bounce(colInfo.GetNormal());
             velocity *= acceleration;
         }
+
+        if(Position.X < -100) EmitSignal("Goal", -1);
+        else if (Position.X > screenSize.X + 100) EmitSignal("Goal", 1);
 	}
 
-    //dir
-    //-1 - left
-    // 1 - right
-    public void LaunchBall(int dir) {
+    public void LaunchBall() {
         velocity = new Vector2(dir,0);
         Random rand = new Random();
-        velocity = velocity.Rotated((float)rand.NextDouble()-0.5f);
+        velocity = velocity.Rotated((float)rand.NextDouble()*1.5f-0.75f);
         velocity *= speed;
+    }
+
+    public void RestartBall(int dir) {
+        this.dir = dir;
+        velocity = Vector2.Zero;
+        Position = screenSize/2;
     }
 }
