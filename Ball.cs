@@ -11,6 +11,8 @@ public partial class Ball : CharacterBody2D
     private Vector2 velocity;
     private float height;
     private int dir = 1;
+    private AudioStreamPlayer bounce;
+    private AudioStreamPlayer goal;
 
     [Signal]
     public delegate void GoalEventHandler(int side); //-1 or 1
@@ -21,6 +23,8 @@ public partial class Ball : CharacterBody2D
         LaunchBall();
 		screenSize = GetViewportRect().Size;
         height = (GetNode<CollisionShape2D>("CollisionShape2D").Shape as RectangleShape2D).Size.Y;
+        bounce = GetNode<AudioStreamPlayer>("Bounce");
+        goal = GetNode<AudioStreamPlayer>("Goal");
     }
 
     public override void _PhysicsProcess(double delta)
@@ -29,18 +33,27 @@ public partial class Ball : CharacterBody2D
         //Position += velocity * (float)delta;
         if(Position.Y <= height/2) {
             velocity = velocity.Bounce(Vector2.Up);
+            bounce.Play();
         }
         if(Position.Y >= screenSize.Y-height/2) {
             velocity = velocity.Bounce(Vector2.Down);
+            bounce.Play();
         }
 
         if (colInfo != null) {
             velocity = velocity.Bounce(colInfo.GetNormal());
             velocity *= acceleration;
+            bounce.Play();
         }
 
-        if(Position.X < -100) EmitSignal("Goal", -1);
-        else if (Position.X > screenSize.X + 100) EmitSignal("Goal", 1);
+        if(Position.X < -100) {
+            EmitSignal("Goal", -1);
+            goal.Play();
+        }
+        else if (Position.X > screenSize.X + 100) {
+            EmitSignal("Goal", 1);
+            goal.Play();
+        }
 	}
 
     public void LaunchBall() {

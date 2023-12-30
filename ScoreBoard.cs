@@ -1,5 +1,4 @@
 using Godot;
-using Godot.NativeInterop;
 
 public partial class ScoreBoard : MarginContainer
 {
