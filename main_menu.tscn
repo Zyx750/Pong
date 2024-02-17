@@ -1,0 +1,74 @@
+[gd_scene load_steps=3 format=3 uid="uid://64hks0fj3tj4"]
+
+[ext_resource type="Theme" uid="uid://bualmukdvu5j3" path="res://pixel.tres" id="1_xas23"]
+[ext_resource type="Script" path="res://Menu.cs" id="2_2ikgg"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_xas23")
+script = ExtResource("2_2ikgg")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -198.0
+offset_top = 30.0
+offset_right = 198.0
+offset_bottom = 174.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 120
+text = "PONG"
+
+[node name="Buttons" type="BoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -195.0
+offset_top = -248.0
+offset_right = 195.0
+offset_bottom = -96.0
+grow_horizontal = 2
+grow_vertical = 0
+vertical = true
+
+[node name="VsPlayer" type="Label" parent="Buttons"]
+layout_mode = 2
+text = "Start vs Player
+"
+horizontal_alignment = 1
+
+[node name="VsCPU" type="Label" parent="Buttons"]
+layout_mode = 2
+text = "Start vs CPU
+"
+horizontal_alignment = 1
+
+[node name="Exit" type="Label" parent="Buttons"]
+layout_mode = 2
+text = "Exit game"
+horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.15
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]

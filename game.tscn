@@ -1,0 +1,77 @@
+[gd_scene load_steps=7 format=3 uid="uid://b6imritysf21c"]
+
+[ext_resource type="Script" path="res://Game.cs" id="1_762vx"]
+[ext_resource type="Texture2D" uid="uid://b6b6bb2k0cn81" path="res://divider.png" id="2_02wto"]
+[ext_resource type="PackedScene" uid="uid://i24mf5ml5l8h" path="res://paddle.tscn" id="3_8f1l3"]
+[ext_resource type="PackedScene" uid="uid://b661os51hihph" path="res://ball.tscn" id="4_5jghv"]
+[ext_resource type="Theme" uid="uid://bualmukdvu5j3" path="res://pixel.tres" id="5_5qfhf"]
+[ext_resource type="Script" path="res://ScoreBoard.cs" id="6_k2lgt"]
+
+[node name="Game" type="Node"]
+script = ExtResource("1_762vx")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Divider" type="TextureRect" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -6.0
+offset_top = -324.0
+offset_right = 6.0
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.999998, 1)
+texture = ExtResource("2_02wto")
+expand_mode = 1
+stretch_mode = 1
+
+[node name="Paddle" parent="." instance=ExtResource("3_8f1l3")]
+position = Vector2(40, 324)
+
+[node name="Paddle2" parent="." instance=ExtResource("3_8f1l3")]
+position = Vector2(1112, 312)
+player = 2
+
+[node name="Ball" parent="." instance=ExtResource("4_5jghv")]
+position = Vector2(576, 324)
+
+[node name="StartTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="ScoreBoard" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_5qfhf")
+script = ExtResource("6_k2lgt")
+
+[node name="Player1" type="Label" parent="ScoreBoard"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 80
+text = "0"
+
+[node name="Player2" type="Label" parent="ScoreBoard"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 80
+text = "0"
+
+[connection signal="Goal" from="Ball" to="." method="OnGoal"]
+[connection signal="Goal" from="Ball" to="ScoreBoard" method="OnGoal"]
+[connection signal="timeout" from="StartTimer" to="Ball" method="LaunchBall"]

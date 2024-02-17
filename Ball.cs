@@ -4,7 +4,7 @@ using Godot;
 public partial class Ball : CharacterBody2D
 {
     [Export]
-    public float startSpeed = 400f;
+    public float startSpeed = 500f;
     [Export]
     public float acceleration = 1.1f;
 	private Vector2 screenSize;
