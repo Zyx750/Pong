@@ -8,7 +8,7 @@ public partial class Ball : CharacterBody2D
     [Export]
     public float acceleration = 1.1f;
 	private Vector2 screenSize;
-    private Vector2 velocity;
+    public Vector2 velocity;
     private float height;
     private int dir = 1;
     private float speed;
