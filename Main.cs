@@ -1,4 +1,3 @@
-using System.Diagnostics.Contracts;
 using Godot;
 
 public partial class Main : Node
@@ -20,7 +19,6 @@ public partial class Main : Node
 			else {
 				GetTree().Paused = true;
 			}
-			GetNode<Timer>("PauseTimer").Start();
 		}
 	}
 }
