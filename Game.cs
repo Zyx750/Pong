@@ -11,7 +11,9 @@ public partial class Game : Node
 		startTimer = GetNode<Timer>("StartTimer");
 	}
 	public void StartGame(bool vsCpu) {
-		OnGoal(-1);
+		int side = (int)(GD.Randi() % 2);
+		if(side == 0) side = -1;
+		OnGoal(side);
 	}
 	public void OnGoal(int side) {
 		ball.RestartBall(-side);

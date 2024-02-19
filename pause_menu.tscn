@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://bec0qit6goqed"]
 
 [ext_resource type="Theme" uid="uid://bualmukdvu5j3" path="res://pixel.tres" id="1_ksy3q"]
-[ext_resource type="Script" path="res://Menu.cs" id="2_e6q8o"]
+[ext_resource type="Script" path="res://PauseMenu.cs" id="2_6gshl"]
 
-[node name="MainMenu" type="Control"]
+[node name="PauseMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,7 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_ksy3q")
-script = ExtResource("2_e6q8o")
+script = ExtResource("2_6gshl")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -32,8 +32,8 @@ offset_top = 30.0
 offset_right = 198.0
 offset_bottom = 174.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 120
-text = "PONG"
+theme_override_font_sizes/font_size = 100
+text = "Game Paused"
 
 [node name="Buttons" type="BoxContainer" parent="."]
 layout_mode = 1
@@ -50,16 +50,14 @@ grow_horizontal = 2
 grow_vertical = 0
 vertical = true
 
-[node name="VsPlayer" type="Label" parent="Buttons"]
+[node name="Resume" type="Label" parent="Buttons"]
 layout_mode = 2
-text = "Start vs Player
-"
+text = "Resume"
 horizontal_alignment = 1
 
-[node name="VsCPU" type="Label" parent="Buttons"]
+[node name="Back" type="Label" parent="Buttons"]
 layout_mode = 2
-text = "Start vs CPU
-"
+text = "Back to main menu"
 horizontal_alignment = 1
 
 [node name="Exit" type="Label" parent="Buttons"]

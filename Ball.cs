@@ -62,8 +62,7 @@ public partial class Ball : CharacterBody2D
 
     public void LaunchBall() {
         velocity = new Vector2(dir,0);
-        Random rand = new Random();
-        velocity = velocity.Rotated((float)rand.NextDouble()*1.5f-0.75f);
+        velocity = velocity.Rotated(GD.Randf()*1.5f-0.75f);
         speed = startSpeed;
         velocity *= speed;
     }

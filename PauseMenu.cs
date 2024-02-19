@@ -1,14 +1,17 @@
 using Godot;
 using System.Collections.Generic;
 
-public partial class Menu : Control
+public partial class PauseMenu : Control
 {
 	List<Label> buttons = new();
 	int active = 0;
 	bool cooldown = false;
 	Timer timer;
 	[Signal]
-    public delegate void StartGameEventHandler(bool vsCpu);
+    public delegate void ResumeEventHandler();
+	[Signal]
+    public delegate void MainMenuEventHandler();
+
 	public override void _Ready()
 	{
 		timer = GetNode<Timer>("Timer");
@@ -44,10 +47,10 @@ public partial class Menu : Control
 		else if(@event.IsActionPressed("confirm")) {
 			switch(active) {
 				case 0:
-					EmitSignal("StartGame", false);
+					EmitSignal("Resume");
 					break;
 				case 1:
-					EmitSignal("StartGame", true);
+					EmitSignal("MainMenu");
 					break;
 				case 2:
 					GetTree().Quit();
