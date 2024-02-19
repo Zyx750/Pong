@@ -1,3 +1,4 @@
+using System.Diagnostics.Contracts;
 using Godot;
 
 public partial class Main : Node
