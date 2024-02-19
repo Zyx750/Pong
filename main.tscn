@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://Main.cs" id="1_wd348"]
 
 [node name="Main" type="Node"]
+process_mode = 3
 script = ExtResource("1_wd348")
 
 [node name="MainMenu" parent="." instance=ExtResource("1_u6sji")]

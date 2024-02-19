@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://ScoreBoard.cs" id="6_k2lgt"]
 
 [node name="Game" type="Node"]
+process_mode = 1
 script = ExtResource("1_762vx")
 
 [node name="Background" type="ColorRect" parent="."]
